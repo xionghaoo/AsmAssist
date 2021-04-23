@@ -26,7 +26,8 @@ public class FragmentActivity_OnCreateMethodVisitor extends AdviceAdapter {
 
         System.out.println("测试版本 5");
 
-        // 插入代码：Log.d(this.getClass().getSimpleName(), "content");
+        // 插入代码：Log.d(this.getClass().getSimpleName(), "------> onCreate: Hello AsmAssist");
+        // this.getClass().getSimpleName()只能用StringBuilder的方式添加
         mv.visitTypeInsn(Opcodes.NEW, "java/lang/StringBuilder");
         mv.visitInsn(Opcodes.DUP);
         mv.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
