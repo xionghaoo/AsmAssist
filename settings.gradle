@@ -1,0 +1,3 @@
+include ':tuyaassist'
+include ':app'
+rootProject.name = "AsmAssist"
