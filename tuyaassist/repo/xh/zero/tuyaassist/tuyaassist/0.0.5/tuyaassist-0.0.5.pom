@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>xh.zero.tuyaassist</groupId>
   <artifactId>tuyaassist</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.5</version>
   <dependencies>
     <dependency>
       <groupId>com.android.tools.build</groupId>

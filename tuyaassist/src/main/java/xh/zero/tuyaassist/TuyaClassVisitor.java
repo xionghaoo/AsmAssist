@@ -5,7 +5,16 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
 public class TuyaClassVisitor extends ClassVisitor implements Opcodes {
+
+    private static final String TYRCTSmartPanelActivity_CLASS = "com/tuya/smart/panel/base/activity/TYRCTSmartPanelActivity.class";
+    private static final String FragmentActivity_CLASS = "androidx/fragment/app/FragmentActivity.class";
+
     private String mClassName;
+
+    static boolean hasClasses(String name) {
+//        System.out.println("class name: " + name);
+        return TYRCTSmartPanelActivity_CLASS.equals(name) || FragmentActivity_CLASS.equals(name);
+    }
 
     public TuyaClassVisitor(ClassVisitor cv) {
         super(Opcodes.ASM5, cv);
@@ -20,14 +29,14 @@ public class TuyaClassVisitor extends ClassVisitor implements Opcodes {
 
     @Override
     public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
-        //System.out.println("LifecycleClassVisitor : visitMethod : " + name);
+//        System.out.println("visitMethod : " + this.mClassName + " : " + name);
 //        MethodVisitor mv = cv.visitMethod(access, name, desc, signature, exceptions);
         MethodVisitor mv = super.visitMethod(access, name, desc, signature, exceptions);
-        //匹配FragmentActivity
         if ("com/tuya/smart/panel/base/activity/TYRCTSmartPanelActivity".equals(this.mClassName)) {
+            // 涂鸦控制面板Activity
             if ("onCreate".equals(name) ) {
                 //处理onCreate
-                System.out.println("LifecycleClassVisitor : change method ----> " + name);
+                System.out.println("TuyaClassVisitor : TYRCTSmartPanelActivity change method ----> " + name);
                 return new OnCreateMethodVisitor(api, mv, access, name, desc);
 //                return new LifecycleOnCreateMethodVisitor(mv);
             }
@@ -36,6 +45,14 @@ public class TuyaClassVisitor extends ClassVisitor implements Opcodes {
 //                System.out.println("LifecycleClassVisitor : change method ----> " + name);
 //                return new LifecycleOnDestroyMethodVisitor(mv);
 //            }
+        }
+        if ("androidx/fragment/app/FragmentActivity".equals(this.mClassName)) {
+            //匹配FragmentActivity
+            if ("onCreate".equals(name) ) {
+                //处理onCreate
+                System.out.println("TuyaClassVisitor : MainActivity change method ----> " + name);
+                return new FragmentActivity_OnCreateMethodVisitor(api, mv, access, name, desc);
+            }
         }
         return mv;
     }

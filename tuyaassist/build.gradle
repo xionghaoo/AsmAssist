@@ -18,7 +18,7 @@ repositories {
 
 //group和version在后面使用自定义插件的时候会用到
 group='xh.zero.tuyaassist'
-version='0.0.1'
+version='0.0.5'
 
 uploadArchives {
     repositories {

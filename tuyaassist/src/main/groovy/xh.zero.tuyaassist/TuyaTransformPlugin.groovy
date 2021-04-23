@@ -18,7 +18,9 @@ import java.util.jar.JarFile
 import java.util.jar.JarOutputStream
 import java.util.zip.ZipEntry
 
-public class TuyaAssistPlugin extends Transform implements Plugin<Project> {
+public class TuyaTransformPlugin extends Transform implements Plugin<Project> {
+
+//    private static String TYRCTSmartPanelActivity_CLASS = "com/tuya/smart/panel/base/activity/TYRCTSmartPanelActivity.class"
 
     @Override
     public void apply(Project project) {
@@ -86,7 +88,7 @@ public class TuyaAssistPlugin extends Transform implements Plugin<Project> {
                 def name = file.name
                 if (name.endsWith(".class") && !name.startsWith("R\$")
                         && !"R.class".equals(name) && !"BuildConfig.class".equals(name)
-                        && ("com/tuya/smart/panel/base/activity/TYRCTSmartPanelActivity.class").equals(name)) {
+                        && TuyaClassVisitor.hasClasses(name)) {
                     println '----------- deal with "class" file <' + name + '> -----------'
                     ClassReader classReader = new ClassReader(file.bytes)
                     ClassWriter classWriter = new ClassWriter(classReader, ClassWriter.COMPUTE_MAXS)
@@ -135,7 +137,7 @@ public class TuyaAssistPlugin extends Transform implements Plugin<Project> {
                 //插桩class
                 if (entryName.endsWith(".class") && !entryName.startsWith("R\$")
                         && !"R.class".equals(entryName) && !"BuildConfig.class".equals(entryName)
-                        && "com/tuya/smart/panel/base/activity/TYRCTSmartPanelActivity.class".equals(entryName)) {
+                        && TuyaClassVisitor.hasClasses(entryName)) {
                     //class文件处理
                     println '----------- deal with "jar" class file <' + entryName + '> -----------'
                     jarOutputStream.putNextEntry(zipEntry)
