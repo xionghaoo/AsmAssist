@@ -20,8 +20,6 @@ import java.util.zip.ZipEntry
 
 public class TuyaTransformPlugin extends Transform implements Plugin<Project> {
 
-//    private static String TYRCTSmartPanelActivity_CLASS = "com/tuya/smart/panel/base/activity/TYRCTSmartPanelActivity.class"
-
     @Override
     public void apply(Project project) {
         //registerTransform
@@ -31,7 +29,7 @@ public class TuyaTransformPlugin extends Transform implements Plugin<Project> {
 
     @Override
     public String getName() {
-        return "TransformPlugin";
+        return "TuyaTransformPlugin";
     }
 
     @Override
@@ -51,7 +49,7 @@ public class TuyaTransformPlugin extends Transform implements Plugin<Project> {
 
     @Override
     void transform(TransformInvocation transformInvocation) throws TransformException, InterruptedException, IOException {
-        println '--------------- TuyaAssistPlugin visit start --------------- '
+        println '--------------- TuyaTransformPlugin visit start --------------- '
         def startTime = System.currentTimeMillis()
         Collection<TransformInput> inputs = transformInvocation.inputs
         TransformOutputProvider outputProvider = transformInvocation.outputProvider
@@ -73,8 +71,8 @@ public class TuyaTransformPlugin extends Transform implements Plugin<Project> {
             }
         }
         def cost = (System.currentTimeMillis() - startTime) / 1000
-        println '--------------- TuyaAssistPlugin visit end --------------- '
-        println "TuyaAssistPlugin cost ： $cost s"
+        println '--------------- TuyaTransformPlugin visit end --------------- '
+        println "TuyaTransformPlugin cost ： $cost s"
     }
 
     /**

@@ -24,10 +24,10 @@ uploadArchives {
     repositories {
         mavenDeployer {
             //提交到远程服务器：
-            // repository(url: "http://www.xxx.com/repos") {
-            //    authentication(userName: "admin", password: "admin")
-            // }
-            //本地的Maven地址设置为D:/repos
+//             repository(url: "xxx") {
+//                authentication(userName: "xxx", password: "xxx")
+//             }
+            //本地的Maven地址
             repository(url: uri('./repo'))
         }
     }
